@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatNova</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-wrap">
+          <div class="brand">ChatNova</div>
+        </div>
+
+        <div class="join-panel">
+          <label>
+            Your name
+            <input id="nameInput" type="text" maxlength="20" placeholder="Enter your name" />
+          </label>
+
+          <label>
+            Room
+            <input id="roomInput" type="text" maxlength="20" placeholder="general" value="general" />
+          </label>
+
+          <button id="joinBtn">Join room</button>
+        </div>
+
+        <div class="users-box">
+          <h4>Online now</h4>
+          <ul id="userList"></ul>
+        </div>
+      </aside>
+
+      <main class="chat-panel">
+        <header class="chat-header">
+          <div>
+            <h2 id="roomTitle">general</h2>
+          </div>
+          <div class="status-dot">Live</div>
+        </header>
+
+        <div id="messages" class="messages"></div>
+
+        <form id="chatForm" class="composer">
+          <input id="messageInput" type="text" maxlength="500" placeholder="Type a message..." autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+      </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
