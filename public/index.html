@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChatNova</title>
+    <title>ChatNova - Firebase MVP</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
@@ -11,46 +11,82 @@
       <aside class="sidebar">
         <div class="brand-wrap">
           <div class="brand">ChatNova</div>
+          <div class="brand-subtitle">Firebase chat</div>
+        </div>
+
+        <div class="user-card">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div>
+            <div class="user-name" id="userName">Guest</div>
+            <div class="user-email" id="userEmail">Not signed in</div>
+          </div>
         </div>
 
         <div class="join-panel">
           <label>
-            Your name
-            <input id="nameInput" type="text" maxlength="20" placeholder="Enter your name" />
+            Room name
+            <input id="roomInput" type="text" value="general" placeholder="general" maxlength="20" />
           </label>
-
-          <label>
-            Room
-            <input id="roomInput" type="text" maxlength="20" placeholder="general" value="general" />
-          </label>
-
-          <button id="joinBtn">Join room</button>
+          <button id="joinRoomBtn" class="secondary-btn">Switch room</button>
         </div>
 
         <div class="users-box">
           <h4>Online now</h4>
           <ul id="userList"></ul>
         </div>
+
+        <button id="logoutBtn" class="logout-btn">Logout</button>
       </aside>
 
       <main class="chat-panel">
         <header class="chat-header">
           <div>
-            <h2 id="roomTitle">general</h2>
+            <h2 id="roomTitle">#general</h2>
           </div>
-          <div class="status-dot">Live</div>
+          <span class="status-dot">Live</span>
         </header>
+
+        <div id="statusBanner" class="status-banner hidden"></div>
 
         <div id="messages" class="messages"></div>
 
         <form id="chatForm" class="composer">
-          <input id="messageInput" type="text" maxlength="500" placeholder="Type a message..." autocomplete="off" />
+          <input id="messageInput" type="text" placeholder="Type a message..." maxlength="500" autocomplete="off" />
           <button type="submit">Send</button>
         </form>
       </main>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <div id="authCard" class="auth-card">
+      <div class="auth-box">
+        <h1>Welcome to ChatNova</h1>
+        <p>Sign in to join the chat room.</p>
+
+        <form id="authForm">
+          <label>
+            Email
+            <input id="emailInput" type="email" placeholder="you@example.com" required />
+          </label>
+
+          <label>
+            Password
+            <input id="passwordInput" type="password" placeholder="Minimum 6 characters" minlength="6" required />
+          </label>
+
+          <div class="auth-actions">
+            <button type="submit" id="loginBtn">Login</button>
+            <button type="button" id="signupBtn" class="secondary-btn">Create account</button>
+          </div>
+        </form>
+
+        <div id="authError" class="auth-error hidden"></div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="/firebase-config.js"></script>
     <script src="/app.js"></script>
   </body>
 </html>

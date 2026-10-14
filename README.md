@@ -1,26 +1,38 @@
-# ChatNova
+# ChatNova Firebase MVP
 
-This is a simple WhatsApp-style chat app built with Node.js, Express and Socket.io.
+This repo contains a Firebase-based WhatsApp-style chat app starter.
 
 ## Features
-- Join room with name
-- Real-time chat in a room
-- Online users list
-- Message history in memory
-- Live notifications when users join or leave
-- Responsive desktop/mobile layout
+- Email/password sign-in and account creation
+- Real-time chat rooms using Firestore
+- Room switching
+- Online users list based on current room membership
+- Responsive WhatsApp-inspired UI
+
+## Required setup
+1. Create a Firebase project: https://console.firebase.google.com/
+2. Enable Authentication -> Email/Password
+3. Enable Cloud Firestore
+4. Replace the values in `public/firebase-config.js` with your real Firebase web config
+5. Make sure your Firestore rules allow read/write for authenticated users, for example:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /rooms/{roomId}/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
 
 ## Run locally
-1. Install dependencies:
-   npm install
-2. Start the app:
-   npm start
-3. Open in browser:
-   http://localhost:3000
+1. npm install
+2. npm start
+3. Open http://localhost:3000
 
 ## Notes
-- This version stores chat history in memory, so messages reset when the server restarts.
-- If you want, I can upgrade it to:
-  - Firebase + Auth + Firestore
-  - MongoDB + JWT + real persistence
-  - private chats, groups, media uploads, typing indicators, online presence, and more
+- This is the fastest working Firebase MVP with email auth.
+- If you want a WhatsApp-like phone OTP flow, we can add Firebase Phone Authentication in the next step.
+- For production, use Firestore security rules and environment-safe config handling.
